@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Voice Assistant For Hearing And Speech Impaired Individuals</title>
+    <style>
+        body {
+            background-color: #333;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #222;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        h1 {
+            text-align: center;
+        }
+        #video-container {
+            margin: 0 auto;
+            text-align: center;
+            margin-top: 20px;
+        }
+        #video {
+            width: 640px;
+            height: 480px;
+            border: 2px solid #fff;
+            border-radius: 10px;
+        }
+        #controls {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .button {
+            padding: 10px 20px;
+            background-color: #444;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        .button:hover {
+            background-color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Voice Assistant For Hearing And Speech Impaired Individuals</h1>
+        <div id="video-container">
+            <img id="video" src="{{ url_for('video_feed') }}" alt="Video Stream">
+            <div id="predicted-character"></div>
+        </div>
+        <div id="controls">
+            <button id="startButton" class="button">Start Stream</button>
+            <button id="stopButton" class="button" style="display: none;">Stop Stream</button>
+        </div>
+    </div>
+
+    <script>
+        var video = document.getElementById('video');
+        var startButton = document.getElementById('startButton');
+        var stopButton = document.getElementById('stopButton');
+
+        var isPlaying = false;
+
+        // Function to start the video stream
+        function startStream() {
+            video.src = "{{ url_for('video_feed') }}";
+            startButton.style.display = 'none';
+            stopButton.style.display = 'inline-block';
+            isPlaying = true;
+        }
+
+        // Function to stop the video stream
+        function stopStream() {
+            video.src = '';
+            startButton.style.display = 'inline-block';
+            stopButton.style.display = 'none';
+            isPlaying = false;
+        }
+
+        // Event listeners for the start and stop buttons
+        startButton.addEventListener('click', function() {
+            startStream();
+        });
+
+        stopButton.addEventListener('click', function() {
+            stopStream();
+        });
+    </script>
+</body>
+</html>
